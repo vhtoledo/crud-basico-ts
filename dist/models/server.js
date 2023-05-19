@@ -4,10 +4,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const usuarios_1 = __importDefault(require("../routes/usuarios"));
 class Server {
     constructor() {
+        this.apiPaths = {
+            usuarios: '/api/usuarios'
+        };
         this.app = (0, express_1.default)();
         this.port = process.env.PORT || '8000';
+        // Definir rutas
+        this.routes();
+    }
+    routes() {
+        this.app.use(this.apiPaths.usuarios, usuarios_1.default);
     }
     listen() {
         this.app.listen(this.port, () => {
